@@ -1,11 +1,28 @@
+# Basics.
 export MM_SERVICESETTINGS_LISTENADDRESS=":$PORT"
+export MM_SERVICESETTINGS_SITEURL=$(echo "$PLATFORM_ROUTES" | base64 --decode | jq -r 'to_entries[] | select(.value.primary) | .key')
+# PostgreSQL.
+export DATABASE_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].host")
+export DATABASE_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].port")
+export DATABASE_NAME=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].path")
+export DATABASE_USER=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].username")
+export DATABASE_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".database[0].password")
 export MM_SQLSETTINGS_DRIVERNAME="postgres"
-export MM_SQLSETTINGS_DATASOURCE="postgres://main:main@database.internal:5432/main?sslmode=disable&connect_timeout=10"
-export MM_ELASTICSEARCHSETTINGS_CONNECTIONURL="http://essearch.internal:9200"
-export MM_ELASTICSEARCHSETTINGS_USERNAME=""
-export MM_ELASTICSEARCHSETTINGS_PASSWORD=""
+export MM_SQLSETTINGS_DATASOURCE="postgres://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST:$DATABASE_PORT/$DATABASE_NAME?sslmode=disable&connect_timeout=10"
+# Elasticsearch.
+export ELASTIC_HOST=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].host") 
+export ELASTIC_PORT=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].port")
+export MM_ELASTICSEARCHSETTINGS_CONNECTIONURL="http://$ELASTIC_HOST:$ELASTIC_PORT"
+export MM_ELASTICSEARCHSETTINGS_USERNAME=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].username")
+export MM_ELASTICSEARCHSETTINGS_PASSWORD=$(echo $PLATFORM_RELATIONSHIPS | base64 --decode | jq -r ".essearch[0].password")
+# Logging.
 export MM_LOGSETTINGS_ENABLEFILE=false
 export MM_LOGSETTINGS_FILELOCATION="./logs/"
+# Notifications.
 export MM_NOTIFICATIONLOGSETTINGS_ENABLEFILE=false
 export MM_NOTIFICATIONLOGSETTINGS_FILELOCATION="./logs/"
+# Plugins.
 export MM_PLUGINSETTINGS_ENABLEUPLOADS=true
+# Email.
+export MM_EMAILSETTINGS_SMTPSERVER=$PLATFORM_SMTP_HOST
+export MM_EMAILSETTINGS_SMTPPORT=25

@@ -9,13 +9,18 @@ type: 'golang:1.14'
 
 # The hooks that will be triggered when the package is deployed.
 hooks:
-    # Build hooks can modify the application files on disk but not access any services like databases.
-    build: !include
-        type: string
-        path: build.sh
-    deploy: !include
-        type: string
-        path: deploy.sh
+    build: |
+        set -e
+        MATTERMOST_VERSION=$(cat mattermost_version)
+        echo "Downloading Mattermost ${MATTERMOST_VERSION}"
+        wget --quiet -c https://releases.mattermost.com/${MATTERMOST_VERSION}/mattermost-${MATTERMOST_VERSION}-linux-amd64.tar.gz -O - | tar -xz
+        cp -a mattermost/* .
+        chmod +x bin/mattermost
+        cp config/config.json config.default
+    deploy: |
+        if [ ! -f config/config.json ] || [ ! -s config/config.json ]; then
+            cp config.default config/config.json
+        fi
 
 # The relationships of the application with services or other applications.
 # The left-hand side is the name of the relationship as it will be exposed
@@ -31,7 +36,7 @@ web:
     socket_family: tcp
     protocol: http
   commands:
-    start: ./start.sh
+    start: ./bin/mattermost
   locations:
     '/':
       # The public directory of the application relative to its root.
@@ -50,6 +55,9 @@ disk: 1024
 
 # Writable directories.
 mounts:
+  '/.config':
+    source: local
+    source_path: config-hidden
   'config':
     source: local
     source_path: config-files

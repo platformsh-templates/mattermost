@@ -5,3 +5,4 @@ data
 dist/files
 plugins
 client/plugins
+config.json
