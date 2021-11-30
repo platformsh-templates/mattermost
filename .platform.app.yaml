@@ -9,6 +9,7 @@ hooks:
     deploy: !include
         type: string
         path: deploy.sh
+    post_deploy: ./bin/mmctl user create --local --username $PSH_INITADMIN_USERNAME --email $PSH_INITADMIN_EMAIL --password $PSH_INITADMIN_PASSWORD
 
 relationships:
     database: "db:postgresql"
