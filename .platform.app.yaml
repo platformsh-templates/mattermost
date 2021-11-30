@@ -10,11 +10,17 @@ hooks:
         wget --quiet -c https://releases.mattermost.com/${MATTERMOST_VERSION}/mattermost-${MATTERMOST_VERSION}-linux-amd64.tar.gz -O - | tar -xz
         cp -a mattermost/* .
         chmod +x bin/mattermost
-        cp config/config.json config.default
-    deploy: |
-        if [ ! -f config/config.json ] || [ ! -s config/config.json ]; then
-            cp config.default config/config.json
-        fi
+    #     cp config/config.json config.default
+    # deploy: |
+    #     if [ ! -f config/config.json ] || [ ! -s config/config.json ]; then
+    #         cp config.default config/config.json
+    #     fi
+        # ./bin/mmctl auth clean
+        # ./bin/mmctl team create --name team-admin --display-name "Admins" --private
+        # ./bin/mmctl channel create --team team-admin --name setup --display-name Setup
+        # ./bin/mmctl post create team-admin:setup --message "Congrats @admin! You have successfully deployed your own Mattermost server on Platform.sh!"
+        # ./bin/mmctl post create team-admin:setup --message "**WARNING:** This instance has been setup with a default System Admin user credentials to make setup as smooth as possible."
+        # ./bin/mmctl post create team-admin:setup --message "**WARNING:** Go to your Account Settings in the top right of the toolbar and update these credentials immediately."
 
 relationships:
     database: "db:postgresql"

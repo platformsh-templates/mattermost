@@ -7,8 +7,8 @@
   primary: true
   type: upstream
   upstream: "app:http"
-  # cache:
-  #   enabled: false
+  cache:
+    enabled: false
 
 "https://{default}/":
   type: redirect
