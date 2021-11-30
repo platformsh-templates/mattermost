@@ -34,16 +34,16 @@ export MM_EMAILSETTINGS_SMTPPORT=25
 
 # Local mode, for setting up the first user on first deploy.
 export MM_SERVICESETTINGS_ENABLELOCALMODE=true
-export MM_SERVICESETTINGS_LOCALMODESOCKETLOCATION="/app/.config/mattermost_local.socket"
-export MMCTL_LOCAL_SOCKET_PATH="/app/.config/mattermost_local.socket"
-# First deploy details.
-export PSH_INITADMIN_USERNAME=admin
-export PSH_INITADMIN_PASSWORD=Admin1234567!
-export PSH_INITADMIN_EMAIL=admin@example.com
-export PSH_FIRSTTEAM_NAME=team-admin
-export PSH_FIRSTTEAM_DISPLAYNAME=team-admin
-export PSH_FIRSTCHANNEL_NAME=setup
-export PSH_FIRSTCHANNEL_DISPLAYNAME=Setup
-export PSH_WELCOME_MESSAGE="Congrats @admin! You have successfully deployed your own Mattermost server on Platform.sh!"
-export PSH_WARNING_MESSAGE1="**WARNING:** This instance has been setup with a default System Admin user credentials to make setup as smooth as possible."
-export PSH_WARNING_MESSAGE2="**WARNING:** Go to your **Account Settings** in the top right of the toolbar and update these credentials immediately."
+export MM_SERVICESETTINGS_LOCALMODESOCKETLOCATION="/app/.config/local/mattermost_local.socket"
+export MMCTL_LOCAL_SOCKET_PATH="/app/.config/local/mattermost_local.socket"
+# # First deploy details.
+# export PSH_INITADMIN_USERNAME=admin
+# export PSH_INITADMIN_PASSWORD=Admin1234567!
+# export PSH_INITADMIN_EMAIL=admin@example.com
+# export PSH_FIRSTTEAM_NAME=team-admin
+# export PSH_FIRSTTEAM_DISPLAYNAME=team-admin
+# export PSH_FIRSTCHANNEL_NAME=setup
+# export PSH_FIRSTCHANNEL_DISPLAYNAME=Setup
+# export PSH_WELCOME_MESSAGE="Congrats @admin! You have successfully deployed your own Mattermost server on Platform.sh!"
+# export PSH_WARNING_MESSAGE1="**WARNING:** This instance has been setup with a default System Admin user credentials to make setup as smooth as possible."
+# export PSH_WARNING_MESSAGE2="**WARNING:** Go to your **Account Settings** in the top right of the toolbar and update these credentials immediately."
