@@ -15,6 +15,7 @@ hooks:
         if [ ! -f config/config.json ] || [ ! -s config/config.json ]; then
             cp config.default config/config.json
         fi
+        export MMCTL_LOCAL_SOCKET_PATH="/app/.config/mattermost_local.socket"
         ./bin/mmctl user create --local --username $PSH_INITADMIN_USERNAME --email $PSH_INITADMIN_EMAIL --password $PSH_INITADMIN_PASSWORD
         ./bin/mmctl team create --local --name $PSH_FIRSTTEAM_NAME --display-name $PSH_FIRSTTEAM_DISPLAYNAME --private
         ./bin/mmctl channel create --local --team $PSH_FIRSTTEAM_NAME --name $PSH_FIRSTCHANNEL_NAME --display-name $PSH_FIRSTCHANNEL_DISPLAYNAME
