@@ -10,6 +10,11 @@ hooks:
         wget --quiet -c https://releases.mattermost.com/${MATTERMOST_VERSION}/mattermost-${MATTERMOST_VERSION}-linux-amd64.tar.gz -O - | tar -xz
         cp -a mattermost/* .
         chmod +x bin/mattermost
+        cp config/config.json config.default
+    deploy: |
+        if [ ! -f config/config.json ] || [ ! -s config/config.json ]; then
+            cp config.default config/config.json
+        fi
         # ./bin/mmctl auth clean
         # ./bin/mmctl team create --name team-admin --display-name "Admins" --private
         # ./bin/mmctl channel create --team team-admin --name setup --display-name Setup
@@ -45,9 +50,9 @@ mounts:
     '/.config':
         source: local
         source_path: config-hidden
-    # 'config':
-    #     source: local
-    #     source_path: config-files
+    'config':
+        source: local
+        source_path: config-files
     'logs':
         source: local
         source_path: log-files
