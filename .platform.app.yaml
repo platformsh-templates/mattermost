@@ -6,6 +6,18 @@ hooks:
     build: !include
         type: string
         path: build.sh
+    deploy: |
+        echo "Straight away"
+        ./bin/mmctl user create --local --username $PSH_INITADMIN_USERNAME --email $PSH_INITADMIN_EMAIL --password $PSH_INITADMIN_PASSWORD
+        echo "Source first"
+        . .environment
+        ./bin/mmctl user create --local --username $PSH_INITADMIN_USERNAME --email $PSH_INITADMIN_EMAIL --password $PSH_INITADMIN_PASSWORD
+        echo "Set again"
+        export MM_SERVICESETTINGS_ENABLELOCALMODE=true
+        export MM_SERVICESETTINGS_LOCALMODESOCKETLOCATION="/app/.config/local/mattermost_local.socket"
+        export MMCTL_LOCAL_SOCKET_PATH="/app/.config/local/mattermost_local.socket"
+        echo "Inline"
+        MMCTL_LOCAL_SOCKET_PATH="/app/.config/local/mattermost_local.socket" ./bin/mmctl user create --local --username $PSH_INITADMIN_USERNAME --email $PSH_INITADMIN_EMAIL --password $PSH_INITADMIN_PASSWORD
     deploy: !include
         type: string
         path: deploy.sh
