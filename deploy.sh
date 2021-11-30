@@ -8,10 +8,6 @@ set_config() {
 
 first_deploy() {
 
-    # Local mode, for setting up the first user.
-    export MM_SERVICESETTINGS_ENABLELOCALMODE=true
-    export MM_SERVICESETTINGS_LOCALMODESOCKETLOCATION="/app/.config/mattermost_local.socket"
-    export MMCTL_LOCAL_SOCKET_PATH="/app/.config/mattermost_local.socket"
     # Demo details.
     export PSH_INITADMIN_USERNAME=admin
     export PSH_INITADMIN_PASSWORD=Admin1234567!
