@@ -28,4 +28,3 @@ first_deploy() {
 }
 
 set_config
-first_deploy
