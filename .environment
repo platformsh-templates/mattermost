@@ -46,11 +46,3 @@ export PSH_FIRSTCHANNEL_DISPLAYNAME=Setup
 export PSH_WELCOME_MESSAGE="Congrats @admin! You have successfully deployed your own Mattermost server on Platform.sh!"
 export PSH_WARNING_MESSAGE1="**WARNING:** This instance has been setup with a default System Admin user credentials to make setup as smooth as possible."
 export PSH_WARNING_MESSAGE2="**WARNING:** Go to your **Account Settings** in the top right of the toolbar and update these credentials immediately."
-
-        ./bin/mmctl user create --local --username $PSH_INITADMIN_USERNAME --email $PSH_INITADMIN_EMAIL --password $PSH_INITADMIN_PASSWORD
-        ./bin/mmctl team create --local --name $PSH_FIRSTTEAM_NAME --display-name $PSH_FIRSTTEAM_DISPLAYNAME --private
-        ./bin/mmctl channel create --local --team $PSH_FIRSTTEAM_NAME --name $PSH_FIRSTCHANNEL_NAME --display-name $PSH_FIRSTCHANNEL_DISPLAYNAME
-        ./bin/mmctl post create --local $PSH_FIRSTTEAM_NAME:$PSH_FIRSTCHANNEL_NAME --message $PSH_WELCOME_MESSAGE
-        ./bin/mmctl post create --local $PSH_FIRSTTEAM_NAME:$PSH_FIRSTCHANNEL_NAME --message $PSH_WARNING_MESSAGE1
-        ./bin/mmctl post create --local $PSH_FIRSTTEAM_NAME:$PSH_FIRSTCHANNEL_NAME --message $PSH_WARNING_MESSAGE2
-
